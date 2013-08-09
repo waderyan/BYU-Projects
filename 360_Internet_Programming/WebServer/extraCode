@@ -1,0 +1,113 @@
+
+
+docRoot = ".";
+
+        vector<char *> headerLines;
+        char buffer[MAX_MSG_SZ];
+        char contentType[MAX_MSG_SZ];
+
+        GetHeaderLines(headerLines,skt,false);
+      
+        for (int i = 0; i < headerLines.size(); i++) {
+            if(debug)
+                    printf("[%d] %s\n",i,headerLines[i]);
+                if(strstr(headerLines[i], "Content-Type")) 
+                    sscanf(headerLines[i], "Content-Type: %s", contentType);
+        }
+
+        string file = GetFile(headerLines[0]);
+
+        cout << "file: " << file << endl;
+
+        struct stat filestat;
+        HTTP_STATUS status;
+        int fileSize = 0;
+        bool printDirectory = false;
+
+        if(stat(file.c_str(), &filestat)) {
+            status = FILE_NOT_FOUND;
+        }
+        else if(S_ISREG(filestat.st_mode)) {
+            status = OK;
+            fileSize = filestat.st_size;
+            cout << "Found regular file\n";
+        }
+        else if(S_ISDIR(filestat.st_mode)) {
+
+            if(isIndexHtml(file)){
+                file = file + "/Index.html";
+                printDirectory = false;
+                
+                struct stat newFilestat;
+                if(stat(file.c_str(),&newFilestat))
+                    status = SERVER_ERROR;
+                else if(S_ISREG(newFilestat.st_mode)){
+                    status = OK;
+                    fileSize = newFilestat.st_size;
+                }
+
+            }else{
+                status = OK;
+                printDirectory = true;
+            }
+        }else{
+            cout << "Error reading file\n";
+            status = SERVER_ERROR;
+        }
+
+
+        cout << "Server status:\n";
+        cout << "status: " << status << endl;
+        cout << "fileSize: " << fileSize << endl;
+        cout << "printDirFlag: " << printDirectory << endl;
+
+        if(printDirectory){
+            string html = printDirectoryListing(file);
+            string responseHeader = formatHeaders(status,HTML,html.length());
+
+            strcpy(buffer,responseHeader.c_str());
+            strcat(buffer,html.c_str());
+        }
+        else{
+
+            Content_type type = getContentType(file);
+
+            if(type == NA){
+                status = FILE_NOT_FOUND;
+                fileSize = 0;
+            }  
+
+            if(fileSize > 0){
+
+                FILE *myFile = fopen(file.c_str(),"rb");
+
+                if(myFile != NULL){
+                    string responseHeader = formatHeaders(status,type,fileSize);
+                    strcpy(buffer,responseHeader.c_str());
+
+                    cout << "File size to get is: " << fileSize << endl;
+
+                    if(fileSize < (MAX_MSG_SZ - responseHeader.length()))
+                        fread(buffer,sizeof(char),fileSize,myFile);
+                    else{
+
+                        while(fileSize > 0){
+                            fread(buffer,sizeof(char),MAX_MSG_SZ,myFile);
+                            fileSize -= write(skt,buffer,strlen(buffer)+1);
+                        }
+
+                    }
+                    fclose(myFile);
+
+                }
+                else{
+                    status = SERVER_ERROR;
+                    fileSize = 0;
+
+                    string responseHeader = formatHeaders(status,type,fileSize);
+                    strcpy(buffer,responseHeader.c_str());
+                }
+            }
+        }
+
+            write(skt,buffer,strlen(buffer)+1);
