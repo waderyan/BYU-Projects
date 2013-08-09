@@ -1,0 +1,152 @@
+Project 2 _ datalog parser
+
+Purpose:
+
+	Write a parser that reads a datalog program from a text file,
+	builds a data structure that represents the datalog program,
+	and outputs the contents of the datalog program data structure
+
+Classes:
+
+	DatalogProgram
+		vectors:
+			facts
+			shcemes
+			Rule - rules
+			queries
+		set:
+			holds domains
+		toString - print out
+		getRules - returns list of rules
+		getSchemes - returns list of schems
+		getFacts - returns list of Facts
+		getQueries - returns list of Queries
+	Rule
+		head predicate;
+		list of predicates;
+		
+		toString - print out
+	Predicate
+		ID
+		parameter list;
+		toString - print out
+	Parameter
+		string : string or identifier
+		toString - print out
+	Parser
+		Determines syntax errors
+
+Must implement the parser using a recursive-descent approach
+Use the scanner from project 1 to read the tokens from the input
+
+First: write a parser that only checks for syntax
+Second: write classes for data structures
+Third: add code to the parser to create data structures
+
+Use exceptions to handle syntax errors
+
+Make a parameter object capable of holding both a name and a value
+	name if parameter is a variable
+	value if the parameter is a constant
+
+Facts and queries should be stored as predicate objects.
+
+Don't store token types in the data structures created by the parser.
+The data structures created by the parser should be decoupled from 
+both the scanner and the parser
+
+Syntax rules (Grammar) e = empty string
+
+<Datalog Program>  ->  Schemes : <Scheme List>     
+	 	       Facts   : <Fact List>
+	               Rules   : <Rule List>
+		       Queries : <Query List>
+		       EOF
+
+<Scheme List>     ->  <Scheme> <Scheme List>
+<Scheme List>     ->  <Scheme>
+<Scheme>          ->  <Predicate>
+
+<Fact List>       ->  <Fact> <Fact List>
+<Fact List>       ->  e
+<Fact>            ->  <Predicate> .
+
+<Rule List>       ->  <Rule> <Rule List>
+<Rule List>       ->  e
+<Rule>            ->  <Predicate> :- <Predicate List> .
+
+<Query List>      ->  <Query> <Query List>
+<Query List>      ->  <Query>
+<Query>           ->  <Predicate> ?
+
+<Predicate List>  ->  <Predicate> , <Predicate List>
+<Predicate List>  ->  <Predicate>
+<Predicate>       ->  Identifier ( <Parameter List> )
+
+<Parameter List>  ->  <Parameter> , <Parameter List>
+<Parameter List>  ->  <Parameter>
+<Parameter>       ->  String | Identifier
+
+
+Schemes()
+{
+	if(myToken == SCHEME)
+		Predicate();
+	else 
+		error();
+	
+}
+Fact()
+{
+	if(myToken == FACT)
+		Predicate();
+	else
+		; -- empty string
+}
+Rule()
+{
+	if(myToken == RULE)
+		Predicate();
+	else
+		; -- empty string
+}
+Query()
+{
+	if(token == QUERY)
+		Predicate();
+		match(Q_MARK);	
+	else
+		error();
+}
+Predicate()
+{
+	if(myToken == <predicate>)
+		
+}
+Predicate()
+{
+	if(myToken == ID)
+		match(ID)
+		
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

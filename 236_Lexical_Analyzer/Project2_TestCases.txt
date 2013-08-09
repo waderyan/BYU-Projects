@@ -1,0 +1,502 @@
+#Project 2 Test Cases
+
+------in21.txt------------------------------------------
+#Empty File
+
+--Result
+Success!
+
+------in22.txt------------------------------------------
+#Given success
+Schemes:
+  snap(S,N,A,P)
+  HasSameAddress(X,Y)
+
+Facts:
+  snap('12345','C. Brown','12 Apple','555-1234').
+  snap('33333','Snoopy','12 Apple','555-1234').
+
+Rules:
+  HasSameAddress(X,Y) :- snap(A,X,B,C),snap(D,Y,B,E).
+
+Queries:
+  HasSameAddress('Snoopy',Who)?
+
+--Result
+
+Success!
+Schemes(2):
+  snap(S,N,A,P)
+  HasSameAddress(X,Y)
+Facts(2):
+  snap('12345','C. Brown','12 Apple','555-1234')
+  snap('33333','Snoopy','12 Apple','555-1234')
+Rules(1):
+  HasSameAddress(X,Y) :- snap(A,X,B,C),snap(D,Y,B,E)
+Queries(1):
+  HasSameAddress('Snoopy',Who)
+Domain(6):
+  '12 Apple'
+  '12345'
+  '33333'
+  '555-1234'
+  'C. Brown'
+  'Snoopy'
+
+------in23.txt------------------------------------------
+#Given Failure case
+
+Schemes:
+    snap(S,N,A,P) 
+    NameHasID(N,S)
+ 
+Facts:
+    snap('12345','C. Brown','12 Apple','555-1234').
+    snap('67890','L. Van Pelt','34 Pear','555-5678').
+ 
+Rules:
+    NameHasID(N,S) :- snap(S,N,A,P)?
+ 
+Queries:
+    NameHasID('Snoopy',Id)?
+
+--Result
+
+Failure!
+  (Q_MARK,"?",10)
+
+------in24.txt------------------------------------------
+#extra question mark at the end of the file
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+?
+
+--Result
+
+Failure!
+(Q_MARK,"?",11)
+
+
+------in25.txt------------------------------------------
+#missing period in facts
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90')
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(ID,"bye",7)
+
+
+------in26.txt------------------------------------------
+#missing punctuation (missing colon dash in rules)
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(ID,"hello",9)
+
+------in27.txt------------------------------------------
+#empty fact or rule lists (empty fact)
+
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Success!
+Schemes(2):
+  hello(U,T,A,H)
+  namehas(U,T)
+Facts(0):
+Rules(1):
+  hellofriend(n,s) :- hello('friend')
+Queries(1):
+  hellofriend('friend','wade',utah)?
+Domain(2):
+  'friend'
+  'wade'
+
+------in28.txt------------------------------------------
+#empty fact or rule lists (empty rule)
+
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+	
+Rules:
+	
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Success!
+Schemes(2):
+  hello(U,T,A,H)
+  namehas(U,T)
+Facts(2):
+  hello('89','90')
+  bye('iji','kdj')
+Rules(0):
+Queries(1):
+  hellofriend('wade',utah)?
+Domain(5):
+  '89'
+  '90'
+  'iji'
+  'kdj'
+  'wade'
+
+------in29.txt------------------------------------------
+#empty scheme
+
+Schemes:
+	
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+	
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(FACTS,"Facts",3)
+
+------in30.txt------------------------------------------
+#empty query
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+	
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	
+
+--Result
+
+Failure!
+(ERROR,"EOF",0)
+
+------in31.txt------------------------------------------
+#out of order shemes, facts, rules, queries
+
+Rules:
+	hellofriend(n,s) hello('friend').
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(RULES,"Rules",1)
+
+------in32.txt------------------------------------------
+#out of order shemes, facts, rules, queries
+
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Rules:
+	hellofriend(n,s) hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(SCHEMES,"Schemes",4)
+
+------in33.txt------------------------------------------
+#punctuation error (no period on rules)
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend')
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(QUERIES,"Queries",9)
+
+------in34.txt------------------------------------------
+#punctuation error (no right parenth on facts)
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90'.
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(PERIOD,".",5)
+
+------in35.txt------------------------------------------
+#punctuation error (no id on queries)
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	('wade',utah)?
+
+--Result
+
+Failure!
+(LEFT_PAREN,"(",10)
+
+------in36.txt------------------------------------------
+#punctuation error (no schemes)
+
+:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(COLON,":",1)
+
+------in37.txt------------------------------------------
+#punctuation error (no colon on schemes)
+
+Schemes
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(ID,"hello",2)
+
+------in38.txt------------------------------------------
+#punctuation error (no parameters in schemes hello)
+
+Schemes:
+	hello()
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(RIGHT_PAREN,")",3)
+
+------in39.txt------------------------------------------
+#punctuation error (no question mark)
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)
+
+--Result
+
+Failure!
+(ERROR,"EOF",0)
+
+------in40.txt------------------------------------------
+#punctuation error (question mark on schemes)
+
+Schemes:
+	hello(U,T,A,H)?
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(Q_MARK,"?",2)
+
+------in41.txt------------------------------------------
+#punctuation error (' missing on facts)
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89',90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result ******
+
+Failure!
+(ERROR,"EOF",0)
+
+------in42.txt------------------------------------------
+#punctuation error (no parameters on rules)
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend() :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?
+
+--Result
+
+Failure!
+(RIGHT_PAREN,")",8)
+
+------in43.txt------------------------------------------
+#punctuation error (no queries)
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+
+--Result
+
+Success!
+Schemes(2):
+  hello(U,T,A,H)
+  namehas(U,T)
+Facts(2):
+  hello('89','90')
+  bye('iji','kdj')
+Rules(1):
+  hellofriend(n,s) :- hello('friend')
+Queries(0):
+Domain(5):
+  '89'
+  '90'
+  'friend'
+  'iji'
+  'kdj'
+
+------inGENERIC.txt------------------------------------------
+#punctuation error 
+
+Schemes:
+	hello(U,T,A,H)
+	namehas(U,T)
+Facts:
+	hello('89','90').
+	bye('iji','kdj').
+Rules:
+	hellofriend(n,s) :- hello('friend').
+Queries:
+	hellofriend('wade',utah)?

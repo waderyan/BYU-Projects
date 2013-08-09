@@ -1,0 +1,213 @@
+----in1.txt----------------------------------------------
+//Empty input file: in1.txt
+
+--> Result should be an empty file: out1.txt
+
+Total Tokens = 0
+
+----in2.txt----------------------------------------------
+//colon immediately followed by another token(no space between colon and next token):in2.txt
+
+Queries:blaho
+
+-->Result: out2.txt
+
+(Queries,"Queries",1)
+(COLON,":",1)
+(ID,"blahho",1)
+Total Tokens = 3
+
+----in3.txt----------------------------------------------
+//two string tokens with no space between: in3.txt
+
+'yellow''car'
+blue'bug'car
+
+-->Result: out3.txt
+
+(STRING,"yellow",1)
+(STRING,"car",1)
+(ID,"blue",2)
+(STRING,"bug",2)
+(ID,"car",2)
+Total Tokens = 5
+
+----in4.txt----------------------------------------------
+//an identifier that contains a number: in4.txt
+
+hello789('bob')
+
+-->Result:
+
+(ID,"hello789",2)
+(LEFT_PAREN,"(",2)
+(STRING,"bob",2)
+(RIGHT_PAREN,")",2)
+Total Tokens = 4
+
+----in5.txt----------------------------------------------
+//an identifier that contains a keyword: in5.txt
+
+marriedrulesto
+
+-->Result:
+
+(ID,"marriedrulesto",1)
+Total Tokens = 1
+
+----in6.txt----------------------------------------------
+//an empty string (nothing between the quotes"): in6.txt
+
+#comment
+marriedTo''
+' '
+
+-->Result
+
+
+(ID,"marriedTo",2)
+(STRING,"",2)
+(STRING," ",3)
+Total Tokens = 3
+
+----in7.txt----------------------------------------------
+//an unterminated string (detected at end of line): 
+
+#comment
+blaho'randy
+
+-->result
+
+(ID,"blaho",2)
+Input error on line 2
+
+----in8.txt----------------------------------------------
+//an unterminated string (detected at end of file): in8.txt
+
+#comment
+(
+)
+randy' 
+
+-->Result:
+
+(LEFT_PAREN,"(",2)
+(RIGHT_PAREN,")",3)
+(ID,"randy",4)
+Input Error on line 4
+
+----in9.txt----------------------------------------------
+//Skipping comments: in9.txt
+
+#this shoud not be read
+readthis
+#don't read this
+readme
+#don't read me
+
+-->result
+
+(ID,"readthis",2)
+(ID,"readme",4)
+Total Tokens = 2
+
+----in10.txt----------------------------------------------
+//Given: in10.txt
+
+Queries:
+   marriedTo ('Bea' , 'Zed')?
+
+Rules:
+   marriedTo( X,Y ) :- marriedTo(Y,X) .
+
+-->Given: out10.txt
+
+(QUERIES,"Queries",2)
+(COLON,":",2)
+(ID,"marriedTo",3)
+(LEFT_PAREN,"(",3)
+(STRING,"Bea",3)
+(COMMA,",",3)
+(STRING,"Zed",3)
+(RIGHT_PAREN,")",3)
+(Q_MARK,"?",3)
+(RULES,"Rules",5)
+(COLON,":",5)
+(ID,"marriedTo",6)
+(LEFT_PAREN,"(",6)
+(ID,"X",6)
+(COMMA,",",6)
+(ID,"Y",6)
+(RIGHT_PAREN,")",6)
+(COLON_DASH,":-",6)
+(ID,"marriedTo",6)
+(LEFT_PAREN,"(",6)
+(ID,"Y",6)
+(COMMA,",",6)
+(ID,"X",6)
+(RIGHT_PAREN,")",6)
+(PERIOD,".",6)
+Total Tokens = 25
+
+----in11.txt----------------------------------------------
+//Find input error (bad symbol): in11.txt
+
+Facts:
++
+Rules:
+
+-->Result:
+
+(FACTS,"Facts",1)
+(COLON,":",1)
+Input Error on line 2
+
+----in12.txt----------------------------------------------
+//Find special words queries, schemes, rules, and facts
+
+Facts:
+blahQueries
+queries
+quERIes
+QuerieS
+rules
+blahrules
+special
+schemes
+Schemes
+
+-->Result:
+(FACTS,"Facts",2)
+(COLON,":",2)
+(ID,"blahQueries",3)
+(ID,"queries",4)
+(ID,"quERIes",5)
+(ID,"QuerieS",6)
+(ID,"rules",7)
+(ID,"blahrules",8)
+(ID,"special",9)
+(ID,"schemes",10)
+(SCHEMES,"Schemes",11)
+Total Tokens = 11
+
+
+----in13.txt----------------------------------------------
+#catch white spaces (space and tab) inside a string
+'hello world'
+'bob		is		orange'
+
+-->Result
+
+(STRING,"hello world",2)
+(STRING,"bob		is		orange",3)
+Total Tokens = 2
+
+in14.txt
+	hello(hi)
+out14.txt
+(ID,"hello",1)
+(LEFT_PAREN,"(",1)
+(ID,"hi",1)
+(RIGHT_PAREN,")",1)
+Total Tokens = 4
+
