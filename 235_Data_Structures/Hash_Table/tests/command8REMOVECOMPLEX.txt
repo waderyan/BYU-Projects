@@ -1,0 +1,19 @@
+add wade
+add randy
+print
+remove wade
+remove randy
+print
+add tami
+add cassie
+add rex
+add gus
+add shaye
+add ben
+print
+remove tami
+remove cassie
+remove rex
+remove gus
+remove shaye
+print

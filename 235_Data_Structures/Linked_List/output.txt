@@ -1,0 +1,22 @@
+clear stack
+clear queue
+push bob
+push joe
+top joe
+size stack 2
+pop joe
+pop bob
+enqueue steve
+enqueue sally
+peek steve
+dequeue steve
+dequeue sally
+dequeue[empty]
+peek[empty]
+push gentry
+enqueue fred
+size queue 1
+clear stack
+clear queue
+dequeue[empty]
+pop[empty]

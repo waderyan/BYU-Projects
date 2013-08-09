@@ -1,0 +1,7 @@
+add wade
+add randy
+add tami
+add cassie
+print
+remove wade
+print

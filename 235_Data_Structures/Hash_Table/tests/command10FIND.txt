@@ -1,0 +1,8 @@
+add wade
+add cassie
+add randy
+print
+find wade
+remove wade
+find wade
+print

@@ -1,0 +1,11 @@
+add wade
+add bob
+
+add fred
+
+print
+
+remove fred
+
+remove billy
+print

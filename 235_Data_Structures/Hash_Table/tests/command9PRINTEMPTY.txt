@@ -1,0 +1,14 @@
+add wade
+add cassie
+add tami
+print
+remove wade
+remove cassie
+remove tami
+print
+add fred
+add bob
+add joe
+print
+clear
+print

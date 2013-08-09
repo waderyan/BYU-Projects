@@ -1,0 +1,6 @@
+add wade
+add randy
+add cassie
+print
+add wade
+print

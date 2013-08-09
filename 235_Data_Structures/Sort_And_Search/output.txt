@@ -1,0 +1,8 @@
+Selection Sort
+size: 16	compares: 120
+size: 32	compares: 496
+size: 64	compares: 2016
+Insertion Sort
+size: 16	compares: 69
+size: 32	compares: 238
+size: 64	compares: 923

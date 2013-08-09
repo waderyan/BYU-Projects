@@ -1,0 +1,7 @@
+add wade
+add cassie
+add bob
+add joe
+print
+clear
+print

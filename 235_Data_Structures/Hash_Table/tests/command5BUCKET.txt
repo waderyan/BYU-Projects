@@ -1,0 +1,8 @@
+add wade
+add cassie
+add randy
+add tami
+add bob
+add joe
+add fred
+print

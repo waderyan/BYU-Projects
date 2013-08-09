@@ -1,0 +1,14 @@
+clear
+add bob
+add joe
+add jim
+print
+hash 0: joe
+hash 1: bob
+hash 2: jim
+find joe true
+remove bob
+remove joe
+remove jim
+print
+find joe false

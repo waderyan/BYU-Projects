@@ -1,0 +1,19 @@
+Test cases for AVL tree
+1) insert
+	a) add alpha case
+	b) add alpha case in random order
+	c) add simple case
+	d) add simpmle case reverse
+	e) add simple case random
+	f) add duplicates to simple case
+	g) add duplicates to alphacase
+2) find
+	a) find 1 in simple case
+	b) find 0 in simple case
+	c) alpha find a,b,c (in set) find (x,y,z) not in set
+3) remove 
+	a) remove 1 in simple case
+	b) remove 2 in simple case
+	c) remove 3 in simple case
+	d) remove 5 in simple case
+	e) medium case test

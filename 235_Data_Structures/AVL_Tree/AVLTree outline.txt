@@ -1,0 +1,47 @@
+AVL Tree Project 6
+
+Classes:
+	AvL_Node - nodes for AVL tree
+	AVL_Tree - implements a set
+	CommandAVL - processes all I/O
+	Set - abstract class
+	Student - same as project from before
+Class Details:
+	AvL_Node:
+	Members
+		Data
+		Left*
+		Right*
+		Height
+	Methods
+		Constructor - creates a new node with left and right set to NULL
+		Destructor - void
+	AvL_Tree: inherits from set and AVL_Node. Template class
+	Members
+		AvL_node* root_node
+		bool increase - flag
+		bool decrease - flag
+		int num_items - counts the number of items
+	Methods
+		Constructor - creates an empty tree
+		Destructor - calls clear function
+		rotate_left - rotate tree when right heavy
+		rotate_right - rotate tree when left heavy
+		rebalance_left - rebalances left heavy
+		rebalance_right - rebalances right heavy
+		add - recursively adds
+		remove - recursivley removes
+		find - recursively finds (Binary search)
+		clear - calls delete node over and over
+		print
+	Helper functions
+		delete_node - three cases (one child, two children, none)
+		get_min_node -  finds the smallest node on the left side
+	Set: abstract class
+	Methods
+		add
+		remove
+		find
+		clear
+		print
+		

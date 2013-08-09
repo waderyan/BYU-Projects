@@ -1,0 +1,11 @@
+clear
+add bob
+add joe
+add jim
+print
+find joe
+remove bob
+remove joe
+remove jim
+print
+find joe
