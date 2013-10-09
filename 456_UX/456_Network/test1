@@ -1,0 +1,11 @@
+N 100 200 "Central"
+N 400 200 "Authentication server"
+C "Central" R "Authentication server" L
+N 600 600 "Wade"
+N 400 600 "Bob"
+N 200 600 "Really long name that takes up space"
+C "Wade" L "Bob" R
+C "Really long name that takes up space" B "Bob" T
+C "Authentication server" R "Bob" T
+C "Central" L "Really long name that takes up space" L
+C "Wade" T "Central" R
